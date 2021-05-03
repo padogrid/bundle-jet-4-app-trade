@@ -22,11 +22,13 @@ lib
 plugins
 
 # PadoGrid workspace directories
-apps
+#apps
 clusters
 docker
 k8s
 pods
+.workspace*
+.cluster
 
 # Bundle specifics
 archive
@@ -35,3 +37,4 @@ lib
 desktop
 setenv.sh0
 build
+apps/trade/hazelcast-platform-demos

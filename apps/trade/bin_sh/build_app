@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+. $SCRIPT_DIR/.addonenv.sh
+
+EXECUTABLE="`basename $0`"
+
+if [ "$HELP" == "true" ]; then
+   echo "Usage:"
+   echo "   ./$EXECUTABLE [-clean] [-?]"
+   echo ""
+   echo "   Builds the realtime-trade-monitor project by first downloading it from"
+   echo "   the GitHub repo. This command requires 'git' and 'mvn' in you path."
+   echo ""
+   echo "Default: ./$EXECUTABLE"
+   echo ""
+   exit
+fi
+
+if [[ ${OS_NAME} == DARWIN* ]]; then
+   # Mac - space required
+   __SED_BACKUP=" 0"
+else
+   __SED_BACKUP="0"
+fi
+
+pushd $APP_DIR > /dev/null
+git clone git@github.com:hazelcast/hazelcast-platform-demos.git
+popd > /dev/null
+pushd $APP_DIR/hazelcast-platform-demos/banking/trade-monitor > /dev/null
+mvn package
+popd > /dev/null
+
+if [ ! -d "$APP_DIR/lib" ]; then
+   mkdir -p "$APP_DIR/lib"
+fi
+if [ ! -d "$APP_DIR/plugins" ]; then
+   mkdir -p "$APP_DIR/plugins"
+fi
+cp $APP_DIR/realtime-trade-monitor/jet-server/target/jet-server-1.0-SNAPSHOT.jar $APP_DIR/lib/
+
+# Copy the Jet jar into the plugins directory to prevent jar version conflict
+# which may occur if the uber jar from the build contains an older version of Jet.
+# JET_HOME/lib is the last in the class path and the cluster plugins is the first.
+echo cp $JET_HOME/lib/hazelcast-jet-${HAZELCAST_VERSION}.jar $APP_DIR/plugins/
+exit
+if [ "$IS_HAZELCAST_ENTERPRISE" == "true" ]; then
+   cp $JET_HOME/lib/hazelcast-jet-enterprise-${HAZELCAST_VERSION}.jar $APP_DIR/plugins/
+else
+   cp $JET_HOME/lib/hazelcast-jet-${HAZELCAST_VERSION}.jar $APP_DIR/plugins/
+fi
+
+#
+# Display build information
+#
+echo ""
+echo "Workspace: $PADOGRID_WORKSPACE"
+echo "  Cluster: $CLUSTER"
+echo ""
+echo "The built jar file(s) are placed in the following directory:"
+echo ""
+echo "   $APP_DIR/lib"
+echo ""
+echo "CLASSPATH includes the above directory for this cluster only."
+echo ""

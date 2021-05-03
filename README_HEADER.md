@@ -1,1 +1,1 @@
-This bundle serves as a template for creating a new Hazelcast bundle. Run `show_bundle bundle-hazelcast-template` to see instructions.
+The trade cluster bundle installs a Jet cluster that includes the build_app script to clone and build a realtime-trade-monitor demo.
