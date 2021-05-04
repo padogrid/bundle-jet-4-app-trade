@@ -14,7 +14,7 @@ install_bundle -download bundle-jet-4-cluster-trade
 
 This use case demonstrates Jet aggregating Kafka streamed trade data in real time. It includes a trade blotter UI for monitoring the trade aggregations executed by Jet.
 
-![Jet Trade Diagram](images/jet-trade.png)
+![Jet Trade Diagram](images/jet-trade-monitor.jpg)
 
 ## Required Software
 
@@ -27,10 +27,6 @@ You must first install Kafka to run the `trade-monitor` app. To follow the steps
 export KAFKA_HOME=~/Padogrid/products/kafka_2.13-2.8.0
 export PATH=$PATH:$KAFKA_HOME/bin
 ```
-
-## Limitations
-
-Unfortunately, the `trade-monitor` demo is driven by a single Jet node which serves as both a storage and an aggregator. We hope this limitation is lifted by Hazelcast in a future release.
 
 ## Installing and Building the `trade` Bundle
 
