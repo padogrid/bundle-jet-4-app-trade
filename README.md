@@ -7,7 +7,7 @@ The `trade-monitor` app bundle installs the `trade-monitor` demo as part of the 
 ## Installing Bundle
 
 ```console
-install_bundle -download bundle-jet-4-cluster-trade
+install_bundle -download bundle-jet-4-app-trade
 ```
 
 ## Use Case
@@ -33,7 +33,7 @@ export PATH=$PATH:$KAFKA_HOME/bin
 To build it, run the `build_app` script in the `trade` app's`bin_sh` directory as follows:
 
 ```console
-# Switch to the trade cluster
+# Switch to the trade app
 cd_app trade; cd bin_sh
 
 # Build app
