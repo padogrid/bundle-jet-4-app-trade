@@ -1,4 +1,4 @@
-# Jet Cluster: trade
+# Jet App: trade-monitor
   
 The `trade-monitor` app bundle installs the `trade-monitor` demo as part of the `hazelcast/hazelcast-platform-demos` GitHub repo maintained by Hazelcast.
 
@@ -44,7 +44,7 @@ The `build_app` script clones the [`hazelcast-platform-demos`](https://github.co
 
 ## Running Apps
 
-To run the demo, you would need to change directory to the demo directory as follows.
+To run the demo, change directory to the demo directory as follows.
 
 ```console
 cd_app trade
@@ -53,7 +53,7 @@ cd hazelcast-platform-demos/banking/trade-monitor
 
 All of the demo scripts are kept in the `src/main/scripts` directory.
 
-The `localhost-*.sh` scripts may not work for your environment if you have more than one network interfaces. Edit the scripts and assign `HOST_IP` to `localhost` or host name.
+The `localhost-*.sh` scripts may not work for your environment if you have more than one network interfaces. Edit the scripts and assign `HOST_IP` to `localhost` or host name as shown below.
 
 ```bash
 cd_app trade
@@ -94,13 +94,17 @@ cd hazelcast-platform-demos/banking/trade-monitor/src/main/scripts
 ./localhost-trade-producer.sh
 
 # 3. Start a Jet node that submits the 'IngestTrades' and 'AggregateQuery' jobs
-./localhost-trade-producer.sh
+cd_app trade
+cd hazelcast-platform-demos/banking/trade-monitor/src/main/scripts
+./localhost-hazelcast-node.sh
 
-# 4. Listen on Kafka 'kf_trades' topic
-kafka-console-consumer.sh --from-beginning --bootstrap-server localhost:9092 --topic kf_trades
-
-# 5. Start web server
+# 4. Start web server
+cd_app trade
+cd hazelcast-platform-demos/banking/trade-monitor/src/main/scripts
 ./localhost-webapp.sh
+
+# 5. Listen on Kafka 'kf_trades' topic
+kafka-console-consumer.sh --from-beginning --bootstrap-server localhost:9092 --topic kf_trades
 
 # 6. List jobs
 jet -t grid@localhost:5701 list-jobs
@@ -112,18 +116,18 @@ jet -t grid@localhost:5701 list-jobs
 
 Ctrl-C running processes in the order shown below.
 
-   1. Javalin web server (5)
-   2. Kafka topic listener (4)
-   3. trade-producer (2)
-   4. Kafka server (1)
-   5. Zookeeper (1)
-```
+   1. Kafka topic listener (5)
+   2. Javalin web server (4)
+   3. Jet node (3)
+   4. trade-producer (2)
+   5. Kafka server (1)
+   6. Zookeeper (1)
 
 ## Tips
 
 ```bash
 # To clear the 'kf_trades' topic, change the retention perioid to 1 sec
-kafka-topics.sh --zookeeper localhost:2181 --alter --topic trades --config retention.ms=1000
+kafka-topics.sh --zookeeper localhost:2181 --alter --topic kf_trades --config retention.ms=1000
 
 # Wait 1+ sec and change back the retention period (5 days)
 kafka-topics.sh --zookeeper localhost:2181 --alter --topic kf_trades --config retention.ms=432000000
