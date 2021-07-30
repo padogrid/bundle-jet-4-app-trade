@@ -87,7 +87,7 @@ If you want to run the Management Center, then create a Jet cluster and configur
 
 ```bash
 make_cluster -product jet
-switch_cluster jet
+switch_cluster myjet
 vi etc/cluster.properties
 ```
 
