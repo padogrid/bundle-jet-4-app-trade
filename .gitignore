@@ -13,6 +13,10 @@ buildNumber.properties
 # vi
 *.swp
 
+# Eclipse
+.project
+.settings
+
 # PadoGrid workspace
 /.addonenv.sh
 /initenv.sh
@@ -29,6 +33,7 @@ k8s
 pods
 .workspace*
 .cluster
+workspace.code-workspace
 
 # Bundle specifics
 archive
