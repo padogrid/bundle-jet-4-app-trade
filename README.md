@@ -6,6 +6,8 @@ The `trade-monitor` app bundle installs the `trade-monitor` demo as part of the 
 
 ## Installing Bundle
 
+![PadoGrid](https://github.com/padogrid/padogrid/raw/develop/images/padogrid-3d-16x16.png) [*Driven by PadoGrid*](https://github.com/padogrid)
+
 ```console
 install_bundle -download bundle-jet-4-app-trade
 ```
